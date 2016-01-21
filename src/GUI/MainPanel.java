@@ -74,6 +74,9 @@ public class MainPanel extends JPanel{
     }
 
     private void updateProgress(){
+        if (game.getProgress() + 1 > game.getSize()){
+            game.goAgain();
+        }
         String total = game.getProgress() + 1 + "/" + game.getSize();
         String right = "Number right: " + game.getNumberRight();
         String wrong = "Number wrong: " + game.getNumberWrong();
@@ -89,7 +92,7 @@ public class MainPanel extends JPanel{
         } else{
             result.setText("Wrong. Answer: " + question);
         }
-        setQuestion();
         updateProgress();
+        setQuestion();
     }
 }

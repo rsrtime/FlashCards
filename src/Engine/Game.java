@@ -11,14 +11,13 @@ import java.util.Random;
 public class Game {
     private List<QuestionAnswer> words;
     private List<QuestionAnswer> wrong;
-    private int i, numberRight, progress;
+    private int i, numberRight, progress, size;
     private Random random;
     public Game(List<String> files) throws IOException{
         words = WordLoader.loadWords(files);
         wrong = new ArrayList<>();
         random = new Random();
-        i = randomInt(0, words.size());
-        progress = 0;
+        initializeVariables();
     }
 
     public String getQuestion(){
@@ -34,7 +33,7 @@ public class Game {
     }
 
     public int getSize(){
-        return words.size();
+        return size;
     }
 
     public int getNumberRight() {
@@ -53,11 +52,27 @@ public class Game {
             numberRight++;
         }
         words.remove(i);
-        i = randomInt(0, words.size());
+        progress++;
+        if (words.size() > 0){
+            i = randomInt(0, words.size());
+        }
         return test;
+    }
+
+    public void goAgain(){
+        words = wrong;
+        wrong = new ArrayList<>();
+        initializeVariables();
     }
 
     private int randomInt(int min, int max){
         return random.nextInt(max - min) + min;
+    }
+
+    private void initializeVariables() {
+        i = randomInt(0, words.size());
+        size = words.size();
+        progress = 0;
+        numberRight = 0;
     }
 }
