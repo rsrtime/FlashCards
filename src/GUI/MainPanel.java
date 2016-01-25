@@ -18,9 +18,7 @@ public class MainPanel extends JPanel{
     private JTextArea progress, result;
     private Game game;
     private final static Font font1 = new Font("SansSerif", Font.BOLD, 25);
-    public MainPanel(){
-        List<String> files = new ArrayList<>();
-        files.add("/home/rsr/Documents/farsi.txt");
+    public MainPanel(List<String> files){
         try{
             game = new Game(files);
         }catch (IOException e){
@@ -90,7 +88,7 @@ public class MainPanel extends JPanel{
         if (game.testAnswer(answerStr)){
             result.setText("Correct");
         } else{
-            result.setText("Wrong. Answer: " + question);
+            result.setText("Wrong. Answer: " + question + "\nYour answer: " + answerStr);
         }
         updateProgress();
         setQuestion();
